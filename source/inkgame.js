@@ -25,8 +25,7 @@ function addSprite(...params) {
 
 import Game from './game.js';
 
-const width = 160;
-const height = 40;
+import { width, height } from './game.js';
 
 const generateEmptyGrid = (width, height) => {
 	return Array.from({length: height}, () =>
@@ -54,7 +53,7 @@ var buffer = generateEmptyGrid(width, height);
 const GridDisplay = () => {
 	useEffect(() => {
 		var loop = Game({addSprite, renderGame})
-		const id = setInterval(() => loop({addSprite, renderGame}), 1000/3);
+		const id = setInterval(() => loop({addSprite, renderGame}), 1000/30);
 		return () => clearInterval(id);
 	  }, []);
 	  
