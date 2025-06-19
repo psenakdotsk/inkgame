@@ -23,7 +23,7 @@ function addSprite(...params) {
 	return go
 }
 
-import Game from './game';
+import Game from './game.js';
 
 const width = 160;
 const height = 40;
