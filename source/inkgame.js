@@ -3,7 +3,20 @@ import {render, Text} from 'ink';
 let display;
 let sprites = [];
 
-import GameObject from './objects';
+class GameObject {
+    constructor(x, y, width, height, char) {
+        this.x = x
+        this.y = y
+        this.width = width
+        this.height = height
+        this.char = char
+    }
+
+    isObjectColliding(x,y,width,height) {
+        return x >= this.x && y >= this.y && x + width <= this.x + this.width && y + height <= this.y + this.height
+    }
+}
+
 function addSprite(...params) {
 	const go = new GameObject(...params);
 	sprites.push(go)
@@ -40,8 +53,11 @@ function renderGame() {
 var buffer = generateEmptyGrid(width, height);
 const GridDisplay = () => {
 	useEffect(() => {
-		Game({addSprite, renderGame});
-	}, []);
+		var loop = Game({addSprite, renderGame})
+		const id = setInterval(() => loop({addSprite, renderGame}), 1000/3);
+		return () => clearInterval(id);
+	  }, []);
+	  
 
 	const [grid, setGrid] = useState(buffer);
 	display = () => {
